@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+      <head>
+            <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+            <title>validacion patente/moto <auto>
+            </title>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script>
+
+                  /*
+                  Formatos de PATENTE
+                  AUTOS:
+                  ABC123   6 Caracteres
+                  AB123CD  7 Caracteres
+                  Moto:
+                  111AAA   6 Caracteres
+                  A123WSX  7 Caracteres
+
+                  */
+
+
+                  jQuery(document).ready(function () {
+                        jQuery("#txtpatenten").keypress(function (tecla) {
+                              if ((tecla.charCode < 97 || tecla.charCode > 122) && (tecla.charCode < 65 || tecla.charCode > 90) && (tecla.charCode != 45) && (tecla.charCode < 48 || tecla.charCode > 57)) return false;
+                        });
+
+
+                        jQuery("#btnSiguiente").click(function () {
+
+                              if (jQuery("#chTermino:checked").length > 0) {
+                                    //SUBMIT
+                                    //$("#form").submit();
+                              } else
+                        });
+                  });
+
+                  function fValPatenteAutoMoto(pPatente) {
+                        var mPatente;
+                        mPatente = pPatente;
+                        switch (mPatente.length) {
+                              case 6:
+                                    if (!$.isNumeric(mPatente.substring(1, 0)) && !$.isNumeric(mPatente.substring(2, 1)) && !$.isNumeric(mPatente.substring(3, 2)) && $.isNumeric(mPatente.substring(4, 3)) && $.isNumeric(mPatente.substring(5, 4)) && $.isNumeric(mPatente.substring(6, 5))) {
+                                          return true;
+                                    } else {
+                                          if ($.isNumeric(mPatente.substring(1, 0)) && $.isNumeric(mPatente.substring(2, 1)) && $.isNumeric(mPatente.substring(3, 2)) && !$.isNumeric(mPatente.substring(4, 3)) && !$.isNumeric(mPatente.substring(5, 4)) && !$.isNumeric(mPatente.substring(6, 5))) {
+                                                return true;
+                                          } else {
+                                                return false;
+                                          }
+                                    }
+                                    break;
+                              case 7:
+                                    if (!$.isNumeric(mPatente.substring(1, 0)) && !$.isNumeric(mPatente.substring(2, 1)) && $.isNumeric(mPatente.substring(3, 2)) && $.isNumeric(mPatente.substring(4, 3)) && $.isNumeric(mPatente.substring(5, 4)) && !$.isNumeric(mPatente.substring(6, 5)) && !$.isNumeric(mPatente.substring(7, 6))) {
+                                          return true;
+                                    } else {
+                                          if (!$.isNumeric(mPatente.substring(1, 0)) && $.isNumeric(mPatente.substring(2, 1)) && $.isNumeric(mPatente.substring(3, 2)) && $.isNumeric(mPatente.substring(4, 3)) && !$.isNumeric(mPatente.substring(5, 4)) && !$.isNumeric(mPatente.substring(6, 5)) && !$.isNumeric(mPatente.substring(7, 6))) {
+                                                return true;
+                                          } else {
+                                                return false;
+                                          }
+                                    }
+                                    break;
+                              default:
+                                    alert('Disculpe, pero ' + mPatente + ' no cumple con los formatos requeridos.');
+                                    return false;
+                        }
+                  }
+
+
+            </script>
+      </head>
+      <form id="form" action="siguiente.html" method="post">
+            <select name="cmbmarca" id="cmbmarca">
+                  <option value=""></option>
+                  <option value=""> * </option>
+            </select>
+            <input type="text" name="txtmodelon" id="txtmodelon" style="text-transform:uppercase;" size="10"></td>
+            <input type="text" name="txtpatenten" id="txtpatenten" size="10" maxlength="7" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.touppercase();">
+            <br>
+            <input type="checkbox" name="chterminos" id="chtermino" value="1">
+            <span class="gris">acepto los t&eacute;rminos y condiciones de la adhesión</span>
+            <input class="boton" type="reset" value="  limpiar " name="btnborrar">&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="volver.html" class="boton_h">volver</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="boton" type="button" value="siguiente" id="btnsiguiente">
+      </form>
+      </body>
+
+</HTML>
